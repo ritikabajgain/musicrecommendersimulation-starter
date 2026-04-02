@@ -20,12 +20,14 @@ Replace this paragraph with your own summary of what your version does.
 The system matches songs to a user by comparing four features: **mood**, **genre**, **energy**, and **acousticness**.
 
 **Song features used:**
+
 - `genre` — the musical category of the song (e.g. pop, hip-hop, classical)
 - `mood` — the emotional character of the song (e.g. happy, sad, calm, hype)
 - `energy` — a 0.0–1.0 value representing intensity and activity level
 - `acousticness` — a 0.0–1.0 value representing how acoustic (vs. electronic) the song sounds
 
 **UserProfile features used:**
+
 - `favorite_genre` — the genre the user prefers
 - `favorite_mood` — the mood the user wants to feel
 - `target_energy` — the energy level the user is looking for (0.0–1.0)
@@ -37,14 +39,15 @@ The system matches songs to a user by comparing four features: **mood**, **genre
 
 Each song starts at a score of 0.0. The recommender applies four rules in sequence and sums the result:
 
-| Rule | Condition | Points |
-|------|-----------|--------|
-| Genre match | `song.genre == user.favorite_genre` | +2.0 |
-| Mood match | `song.mood == user.favorite_mood` | +2.0 |
-| Energy proximity | `1.0 - abs(song.energy - user.target_energy)` | +0.0 to +1.0 |
+| Rule             | Condition                                                 | Points       |
+| ---------------- | --------------------------------------------------------- | ------------ |
+| Genre match      | `song.genre == user.favorite_genre`                       | +2.0         |
+| Mood match       | `song.mood == user.favorite_mood`                         | +2.0         |
+| Energy proximity | `1.0 - abs(song.energy - user.target_energy)`             | +0.0 to +1.0 |
 | Acousticness fit | song acousticness aligns with `likes_acoustic` preference | +1.0 or +0.0 |
 
 **Acousticness rule detail:**
+
 - If `likes_acoustic = True` and `song.acousticness >= 0.6` → +1.0
 - If `likes_acoustic = False` and `song.acousticness <= 0.3` → +1.0
 - Otherwise → +0.0
@@ -74,6 +77,8 @@ After scoring all songs, they are sorted by score descending and the top `k` (de
    python -m venv .venv
    source .venv/bin/activate      # Mac or Linux
    .venv\Scripts\activate         # Windows
+
+   ```
 
 2. Install dependencies
 
@@ -134,12 +139,11 @@ Write 1 to 2 paragraphs here about what you learned:
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
 
-
 ---
 
 ## 7. `model_card_template.md`
 
-Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}  
+Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}
 
 ```markdown
 # 🎧 Model Card - Music Recommender Simulation
@@ -191,6 +195,7 @@ Describe your dataset.
 Where does your recommender work well
 
 You can think about:
+
 - Situations where the top results "felt right"
 - Particular user profiles it served well
 - Simplicity or transparency benefits
@@ -202,6 +207,7 @@ You can think about:
 Where does your recommender struggle
 
 Some prompts:
+
 - Does it ignore some genres or moods
 - Does it treat all users as if they have the same taste shape
 - Is it biased toward high energy or one genre by default
@@ -214,6 +220,7 @@ Some prompts:
 How did you check your system
 
 Examples:
+
 - You tried multiple user profiles and wrote down whether the results matched your expectations
 - You compared your simulation to what a real app like Spotify or YouTube tends to recommend
 - You wrote tests for your scoring logic
@@ -242,3 +249,10 @@ A few sentences about what you learned:
 - How did building this change how you think about real music recommenders
 - Where do you think human judgment still matters, even if the model seems "smart"
 
+![alt text](image.png)
+```
+
+### "Adversarial" or "Edge Case" user profiles results
+
+![alt text](image-1.png)
+![alt text](image-2.png)
